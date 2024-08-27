@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -134,13 +135,19 @@ class MainActivity : AppCompatActivity() {
 
                 if (result != null) {
                     // Check if the result is an integer
-                    if (result == result.toInt().toDouble()) {
-                        binding.txtNumber.text = result.toInt().toString()
+                    val resultText = if (result == result.toInt().toDouble()) {
+                        result.toInt().toString()
                     } else {
-                        binding.txtNumber.text = result.toString()
+                        result.toString()
                     }
+
+                    binding.txtNumber.text = resultText
+
+                    // Display the result as a toast
+                    Toast.makeText(this, "Result: $resultText", Toast.LENGTH_SHORT).show()
                 } else {
                     binding.txtNumber.text = "Error"
+                    Toast.makeText(this, "Error: Division by zero", Toast.LENGTH_SHORT).show()
                 }
 
                 firstNumber = null
